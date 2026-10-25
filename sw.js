@@ -1,5 +1,5 @@
 /* Shahin ERP service worker: keeps the app opening offline. Data requests always go to the network. */
-const CACHE = "shahin-erp-v3";
+const CACHE = "shahin-erp-v4";
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(["./", "./index.html", "./manifest.webmanifest", "./icon-192.png"])).then(() => self.skipWaiting()));
 });

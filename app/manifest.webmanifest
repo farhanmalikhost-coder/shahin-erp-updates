@@ -1,0 +1,30 @@
+{
+  "name": "Shahin ERP",
+  "short_name": "Shahin ERP",
+  "description": "Shahin ERP — Sabah Hussain Abu Shahin Est. Employees, attendance, accounts, projects and business development.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#070d24",
+  "theme_color": "#070d24",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "id": "shahin-erp"
+}

@@ -1,16 +1,16 @@
 {
-  "version": "1.10.2",
-  "file": "shahin-erp-1.10.2.html",
-  "sha256": "7c4993f158c70df7ce925f7e70ca7a26e286208f932be0e786552cf5972f765b",
+  "version": "1.11.0",
+  "file": "shahin-erp-1.11.0.html",
+  "sha256": "457077ddb55538379f75a71edcd6951b5a66af951f009521077fb8e6e1f76b36",
   "core": {
-    "file": "shahin-erp-core-1.10.2.cjs",
+    "file": "shahin-erp-core-1.11.0.cjs",
     "sha256": "b2359b38609efa0eb795c0cdd3dc6b5f4e7b51e6c46ee0c36ddc6e00f94842b6"
   },
   "preload": {
-    "file": "shahin-erp-preload-1.10.2.cjs",
+    "file": "shahin-erp-preload-1.11.0.cjs",
     "sha256": "ca56b4d6af194d0dd32181a53f02270ed9315e6ecae70b0875581e2286d436bc"
   },
-  "notes": "New sign-in: Owner, Admin and Staff in one app",
+  "notes": "Authentic document QR: every printed invoice, payslip and statement is verified from the company database",
   "minDesktop": "1.1.0",
   "date": "2026-10-25"
 }

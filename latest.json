@@ -1,16 +1,16 @@
 {
-  "version": "1.12.1",
-  "file": "shahin-erp-1.12.1.html",
-  "sha256": "6ec2ed12b1a4a3dce222ad5dcfe2d82e307ed21b1bd770fcd95b2bb64e505578",
+  "version": "1.12.2",
+  "file": "shahin-erp-1.12.2.html",
+  "sha256": "4c3a011428d73fe728d7588596a861e0889b9afbd917d051a023f9ad9936d530",
   "core": {
-    "file": "shahin-erp-core-1.12.1.cjs",
+    "file": "shahin-erp-core-1.12.2.cjs",
     "sha256": "b2359b38609efa0eb795c0cdd3dc6b5f4e7b51e6c46ee0c36ddc6e00f94842b6"
   },
   "preload": {
-    "file": "shahin-erp-preload-1.12.1.cjs",
+    "file": "shahin-erp-preload-1.12.2.cjs",
     "sha256": "ca56b4d6af194d0dd32181a53f02270ed9315e6ecae70b0875581e2286d436bc"
   },
-  "notes": "ZATCA practice mode clearly marked; Live only by the owner",
+  "notes": "Phone app fills the screen",
   "minDesktop": "1.1.0",
   "date": "2026-10-25"
 }

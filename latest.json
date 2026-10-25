@@ -1,16 +1,16 @@
 {
-  "version": "1.7.0",
-  "file": "shahin-erp-1.7.0.html",
-  "sha256": "5cc9617f8b536227fa215cf929de23d608843dff002f8296a084385892e70e01",
+  "version": "1.8.0",
+  "file": "shahin-erp-1.8.0.html",
+  "sha256": "77977c828c2cf3db76559ae13c0f6ae604c289434cb87251e67b8f3fbb43aefc",
   "core": {
-    "file": "shahin-erp-core-1.7.0.cjs",
+    "file": "shahin-erp-core-1.8.0.cjs",
     "sha256": "b2359b38609efa0eb795c0cdd3dc6b5f4e7b51e6c46ee0c36ddc6e00f94842b6"
   },
   "preload": {
-    "file": "shahin-erp-preload-1.7.0.cjs",
+    "file": "shahin-erp-preload-1.8.0.cjs",
     "sha256": "ca56b4d6af194d0dd32181a53f02270ed9315e6ecae70b0875581e2286d436bc"
   },
-  "notes": "Calmer theme, clearer font",
+  "notes": "ZATCA e-invoice QR on invoices, invoice type, two-step reminder for the owner",
   "minDesktop": "1.1.0",
   "date": "2026-10-25"
 }

@@ -549,6 +549,45 @@ Deno.serve(async (req) => {
     const service = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const admin = createClient(url, service, { auth: { persistSession: false } });
     const jwt = (req.headers.get("Authorization") || "").replace(/^Bearer\s+/i, "");
+
+    /* ---------- self test on ZATCA's developer sandbox only (no company data, nothing saved) ---------- */
+    if (jwt === service) {
+      const tb = await req.json().catch(() => ({}));
+      if (tb.action !== "selftest") return json({ error: "Unknown action" }, 400);
+      const fake: any = { company_name: "Shahin Test Est.", vat_number: "399999999900003", cr_number: "1010010000", zatca_street: "Prince Majid Street", zatca_building: "7689", zatca_district: "Al Aziziyah", zatca_city: "Jeddah", zatca_postal: "23342", zatca_short_address: "JEDA7689" };
+      const key = newPrivateKey();
+      const egsUuid = crypto.randomUUID();
+      const csr = buildCsr(key, { commonName: "TST-886431145-399999999900003", vat: fake.vat_number, organization: fake.company_name, branch: "Head Office", serial: `1-ShahinERP|2-1.12|3-${egsUuid}`, invoiceTypes: "1100", location: fake.zatca_short_address, industry: "Construction", template: TEMPLATE.sandbox });
+      const c1 = await zatca("sandbox", "/compliance", { csr: csr.base64 }, { OTP: "123345" });
+      if (!c1.data?.binarySecurityToken) return json({ step: "compliance CSID", c1 });
+      const tok = c1.data.binarySecurityToken, sec = c1.data.secret;
+      const cert = certOf(tok);
+      const out: any[] = [];
+      let pih = FIRST_PIH;
+      for (const doc of sampleDocs(fake, egsUuid)) {
+        doc.pih = pih;
+        const sg = signInvoice(doc, key, cert);
+        const r = await zatca("sandbox", "/compliance/invoices", { invoiceHash: sg.invoiceHash, uuid: doc.uuid, invoice: b64(utf8(sg.xml)) }, basic(tok, sec));
+        pih = sg.invoiceHash;
+        out.push({ doc: `${doc.kind} ${doc.docType}`, http: r.status, v: r.data?.validationResults ?? r.data, res: r.data?.clearanceStatus || r.data?.reportingStatus });
+      }
+      const p = await zatca("sandbox", "/production/csids", { compliance_request_id: String(c1.data.requestID) }, basic(tok, sec));
+      const live: any[] = [];
+      if (p.data?.binarySecurityToken) {
+        const pc = certOf(p.data.binarySecurityToken);
+        let ph = FIRST_PIH;
+        for (const doc of sampleDocs(fake, egsUuid).filter((d) => d.docType === "388")) {
+          doc.pih = ph;
+          const sg = signInvoice(doc, key, pc);
+          const simp = doc.kind === "simplified";
+          const r = await zatca("sandbox", simp ? "/invoices/reporting/single" : "/invoices/clearance/single", { invoiceHash: sg.invoiceHash, uuid: doc.uuid, invoice: b64(utf8(sg.xml)) }, { ...basic(p.data.binarySecurityToken, p.data.secret), "Clearance-Status": simp ? "0" : "1" });
+          ph = sg.invoiceHash;
+          live.push({ doc: doc.kind, http: r.status, status: r.data?.clearanceStatus || r.data?.reportingStatus, v: r.data?.validationResults, cleared: !!r.data?.clearedInvoice });
+        }
+      }
+      return json({ compliance: out, production: { http: p.status, ok: !!p.data?.binarySecurityToken, err: p.data?.binarySecurityToken ? undefined : p.data }, live });
+    }
+
     const { data: u } = await admin.auth.getUser(jwt);
     if (!u?.user) return json({ error: "Please sign in again." }, 401);
     const { data: me } = await admin.from("profiles").select("company_id, role, status, full_name").eq("user_id", u.user.id).maybeSingle();

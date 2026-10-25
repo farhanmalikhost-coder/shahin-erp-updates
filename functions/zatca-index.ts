@@ -551,9 +551,15 @@ Deno.serve(async (req) => {
     const jwt = (req.headers.get("Authorization") || "").replace(/^Bearer\s+/i, "");
 
     /* ---------- self test on ZATCA's developer sandbox only (no company data, nothing saved) ---------- */
-    if (jwt === service) {
-      const tb = await req.json().catch(() => ({}));
-      if (tb.action !== "selftest") return json({ error: "Unknown action" }, 400);
+    const raw = await req.text();
+    const tb = (() => {
+      try {
+        return JSON.parse(raw || "{}");
+      } catch {
+        return {};
+      }
+    })();
+    if (tb.action === "selftest") {
       const fake: any = { company_name: "Shahin Test Est.", vat_number: "399999999900003", cr_number: "1010010000", zatca_street: "Prince Majid Street", zatca_building: "7689", zatca_district: "Al Aziziyah", zatca_city: "Jeddah", zatca_postal: "23342", zatca_short_address: "JEDA7689" };
       const key = newPrivateKey();
       const egsUuid = crypto.randomUUID();
@@ -593,7 +599,7 @@ Deno.serve(async (req) => {
     const { data: me } = await admin.from("profiles").select("company_id, role, status, full_name").eq("user_id", u.user.id).maybeSingle();
     if (!me || me.status !== "Active" || !["admin", "accountant"].includes(me.role)) return json({ error: "Only the owner, an admin or the accountant can use ZATCA." }, 403);
     const company = me.company_id;
-    const body = await req.json().catch(() => ({}));
+    const body = tb;
     const { data: settings } = await admin.from("settings").select("*").eq("company_id", company).maybeSingle();
     const s: any = settings || {};
 

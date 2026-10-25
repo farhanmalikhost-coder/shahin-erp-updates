@@ -1,0 +1,25 @@
+const { contextBridge, ipcRenderer } = require("electron");
+
+contextBridge.exposeInMainWorld("shahinDesktop", {
+  loadData: () => ipcRenderer.sendSync("data:load"),
+  saveData: (json) => ipcRenderer.send("data:save", json),
+  info: () => ipcRenderer.invoke("app:info"),
+  backupNow: () => ipcRenderer.invoke("backup:now"),
+  listBackups: () => ipcRenderer.invoke("backup:list"),
+  restoreBackup: (p) => ipcRenderer.invoke("backup:restore", p),
+  chooseGoogleFolder: () => ipcRenderer.invoke("backup:google-choose"),
+  useDetectedGoogle: () => ipcRenderer.invoke("backup:google-detect"),
+  configure: (c) => ipcRenderer.invoke("backup:configure", c),
+  openFolder: (p) => ipcRenderer.invoke("shell:open-folder", p),
+  savePdf: (name, b64) => ipcRenderer.invoke("pdf:save", name, b64),
+  openExternal: (url) => ipcRenderer.invoke("shell:open-external", url),
+  showItem: (p) => ipcRenderer.invoke("shell:show-item", p),
+  print: (opts) => ipcRenderer.invoke("print:page", opts),
+  printToPdf: (name) => ipcRenderer.invoke("print:pdf", name),
+  saveMirror: (json) => ipcRenderer.invoke("mirror:save", json),
+  printers: () => ipcRenderer.invoke("print:printers"),
+  checkUpdate: () => ipcRenderer.invoke("update:check"),
+  updateState: () => ipcRenderer.invoke("update:state"),
+  restartToUpdate: () => ipcRenderer.invoke("update:restart"),
+  onUpdateReady: (cb) => ipcRenderer.on("update:ready", (_e, st) => cb(st)),
+});

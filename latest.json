@@ -1,16 +1,16 @@
 {
-  "version": "1.12.4",
-  "file": "shahin-erp-1.12.4.html",
-  "sha256": "95c47d01911fdc4723198bcf7b43c80cb4c839560b140c6c8f7a53f17a1d0840",
+  "version": "1.12.5",
+  "file": "shahin-erp-1.12.5.html",
+  "sha256": "663003843eb359e5ef0c585f8fa50f718fa834f4d8c3fa2303c665d70e274768",
   "core": {
-    "file": "shahin-erp-core-1.12.4.cjs",
+    "file": "shahin-erp-core-1.12.5.cjs",
     "sha256": "b2359b38609efa0eb795c0cdd3dc6b5f4e7b51e6c46ee0c36ddc6e00f94842b6"
   },
   "preload": {
-    "file": "shahin-erp-preload-1.12.4.cjs",
+    "file": "shahin-erp-preload-1.12.5.cjs",
     "sha256": "ca56b4d6af194d0dd32181a53f02270ed9315e6ecae70b0875581e2286d436bc"
   },
-  "notes": "Moving data online keeps every employee",
+  "notes": "Print and PDF always on a full A4 page, also from the phone",
   "minDesktop": "1.1.0",
   "date": "2026-10-25"
 }

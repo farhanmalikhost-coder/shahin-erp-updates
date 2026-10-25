@@ -1,16 +1,16 @@
 {
-  "version": "1.5.0",
-  "file": "shahin-erp-1.5.0.html",
-  "sha256": "f6e9fcda33a2d6e4ec6ce6df59c104607bf6aca1bcde09814a981483ec87d7fd",
+  "version": "1.6.0",
+  "file": "shahin-erp-1.6.0.html",
+  "sha256": "46ec1cdb2cfa4a4f2bc2da27d1b6d4cdf3f5154eb4b1f17498c7356b67406942",
   "core": {
-    "file": "shahin-erp-core-1.5.0.cjs",
+    "file": "shahin-erp-core-1.6.0.cjs",
     "sha256": "b2359b38609efa0eb795c0cdd3dc6b5f4e7b51e6c46ee0c36ddc6e00f94842b6"
   },
   "preload": {
-    "file": "shahin-erp-preload-1.5.0.cjs",
+    "file": "shahin-erp-preload-1.6.0.cjs",
     "sha256": "ca56b4d6af194d0dd32181a53f02270ed9315e6ecae70b0875581e2286d436bc"
   },
-  "notes": "",
+  "notes": "Online: same data on every phone and computer",
   "minDesktop": "1.1.0",
   "date": "2026-10-25"
 }

@@ -1,16 +1,16 @@
 {
-  "version": "1.11.0",
-  "file": "shahin-erp-1.11.0.html",
-  "sha256": "457077ddb55538379f75a71edcd6951b5a66af951f009521077fb8e6e1f76b36",
+  "version": "1.12.0",
+  "file": "shahin-erp-1.12.0.html",
+  "sha256": "6c0282cfe38a3e99c49685793b7a3bda2634091a3bd696ae4eaa658b7229ec3e",
   "core": {
-    "file": "shahin-erp-core-1.11.0.cjs",
+    "file": "shahin-erp-core-1.12.0.cjs",
     "sha256": "b2359b38609efa0eb795c0cdd3dc6b5f4e7b51e6c46ee0c36ddc6e00f94842b6"
   },
   "preload": {
-    "file": "shahin-erp-preload-1.11.0.cjs",
+    "file": "shahin-erp-preload-1.12.0.cjs",
     "sha256": "ca56b4d6af194d0dd32181a53f02270ed9315e6ecae70b0875581e2286d436bc"
   },
-  "notes": "Authentic document QR: every printed invoice, payslip and statement is verified from the company database",
+  "notes": "ZATCA Phase 2: invoices cleared / reported with ZATCA Fatoora, credit and debit notes, national address",
   "minDesktop": "1.1.0",
   "date": "2026-10-25"
 }

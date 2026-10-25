@@ -571,6 +571,10 @@ Deno.serve(async (req) => {
     /* ---------- connect the device: CSR -> compliance CSID -> compliance checks -> production CSID ---------- */
     if (body.action === "onboard") {
       if (me.role !== "admin") return json({ error: "Only the owner or an admin can connect ZATCA." }, 403);
+      if (body.env === "production") {
+        const { data: owner } = await admin.from("profiles").select("is_owner").eq("user_id", u.user.id).maybeSingle();
+        if (!owner?.is_owner || body.confirm !== "LIVE") return json({ error: "Only the owner can switch ZATCA to Live, and must type LIVE to confirm." }, 403);
+      }
       const env = ["sandbox", "simulation", "production"].includes(body.env) ? body.env : "sandbox";
       const otp = String(body.otp || (env === "sandbox" ? "123345" : "")).trim();
       if (!/^\d{6}$/.test(otp)) return json({ error: "Enter the 6-digit OTP from the Fatoora portal." }, 400);
@@ -646,6 +650,7 @@ Deno.serve(async (req) => {
       const { data: inv } = await admin.from("invoices").select("*").eq("id", body.invoice_id).eq("company_id", company).maybeSingle();
       if (!inv) return json({ error: "Invoice not found" }, 404);
       if (["CLEARED", "REPORTED"].includes(inv.zatca_status)) return json({ ok: true, already: true, status: inv.zatca_status });
+      if (egs.env === "production" && inv.zatca_status?.startsWith?.("TEST_")) inv.zatca_status = null;
       const { data: client } = inv.client_id ? await admin.from("clients").select("*").eq("id", inv.client_id).maybeSingle() : { data: null };
       const simplified = /simplified/i.test(String(inv.invoice_type || ""));
       const docType = (["388", "381", "383"].includes(inv.doc_type) ? inv.doc_type : "388") as "388" | "381" | "383";
@@ -711,7 +716,9 @@ Deno.serve(async (req) => {
           const m = xml.match(/<cbc:ID>QR<\/cbc:ID>\s*<cac:Attachment>\s*<cbc:EmbeddedDocumentBinaryObject[^>]*>([^<]+)</);
           if (m) qr = m[1];
         }
-        const status = accepted ? (simplified ? "REPORTED" : "CLEARED") : r.status === 400 ? "REJECTED" : "ERROR";
+        const live = egs.env === "production";
+        // practice modes never mark an invoice as registered: it stays editable and is sent again for real after going Live
+        const status = accepted ? `${live ? "" : "TEST_"}${simplified ? "REPORTED" : "CLEARED"}` : `${live ? "" : "TEST_"}${r.status === 400 ? "REJECTED" : "ERROR"}`;
         // the chain moves on with every invoice the device signed
         await admin.from("zatca_egs").update({ icv, pih: signed.invoiceHash, busy_until: null, updated_at: new Date().toISOString() }).eq("company_id", company);
         await admin
@@ -721,7 +728,7 @@ Deno.serve(async (req) => {
             zatca_uuid: doc.uuid,
             zatca_icv: icv,
             zatca_hash: signed.invoiceHash,
-            zatca_qr: accepted ? qr : null,
+            zatca_qr: accepted && live ? qr : null,
             zatca_xml: xml,
             zatca_result: { http: r.status, env: egs.env, ...(r.data || {}), clearedInvoice: undefined },
             zatca_sent_at: new Date().toISOString(),

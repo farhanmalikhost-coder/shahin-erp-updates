@@ -1,8 +1,8 @@
 {
-  "version": "1.2.0",
-  "file": "shahin-erp-1.2.0.html",
-  "sha256": "7afe3b43219b867741f7d0836c84883960a438456716b218f2aa66e2c52c74e8",
-  "notes": "Premium look, HD prints with QR codes, one-click printing, faster screens",
+  "version": "1.3.0",
+  "file": "shahin-erp-1.3.0.html",
+  "sha256": "1a73d2eee41ed4ce8c48ac2abfd4f49d43ffc7da22d4c2144311f4647ae83f31",
+  "notes": "",
   "minDesktop": "1.1.0",
   "date": "2026-10-25"
 }

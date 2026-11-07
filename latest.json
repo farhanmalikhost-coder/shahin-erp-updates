@@ -1,16 +1,17 @@
 {
-  "version": "1.13.0",
-  "file": "shahin-erp-1.13.0.html",
-  "sha256": "7f8d36ac03ca463392bdd42a98594d3989de28484396f091f67dc1f91a843f82",
+  "version": "1.14.0",
+  "file": "shahin-erp-1.14.0.html",
+  "sha256": "7a36861ae0449cc387edc1a246958a8b7f09386557486a925ad5404663e24b52",
   "core": {
-    "file": "shahin-erp-core-1.13.0.cjs",
-    "sha256": "b2359b38609efa0eb795c0cdd3dc6b5f4e7b51e6c46ee0c36ddc6e00f94842b6"
+    "file": "shahin-erp-core-1.14.0.cjs",
+    "sha256": "fba994dc7fc3293ab164cc04392cec8ef5e6a474d8745b0367757addb091d696"
   },
   "preload": {
-    "file": "shahin-erp-preload-1.13.0.cjs",
+    "file": "shahin-erp-preload-1.14.0.cjs",
     "sha256": "ca56b4d6af194d0dd32181a53f02270ed9315e6ecae70b0875581e2286d436bc"
   },
-  "notes": "Documents now look like the company letterhead (To / Ref / Sub / Dear Sir, bordered table with section headings, terms of payment, signed by). One QR only: scanning shows VERIFIED with the website QR. Quotation fields: Attn, terms of payment, signed by. A4 print with full footer band.",
+  "notes": "Version 1.14.0: safer sign-in and password reset with two-step verification, online safety copy for lost computers, website inquiries into the ERP, security hardening",
   "minDesktop": "1.1.0",
-  "date": "2026-10-25"
+  "date": "2026-11-07",
+  "sig": "6Bdsh5AZkGe8nu4yn/PfGp/7ZLZVyBtI9sj5u08Se7/nG97/TZU1Klsl2VarZXZLxvRiapuUjAY2IDf4QcAzDQ=="
 }
